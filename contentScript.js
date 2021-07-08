@@ -29,12 +29,16 @@ function extractHostname(url) {
  * Adds a green hosting badge
  */
 function putGreenHostBadge(element) {
-	var el = document.createElement("span");
-	el.innerHTML = "Green Host";
-	el.style.backgroundColor = 'darkgreen';
-	el.style.padding = '2px'
-	el.style.color = 'white'
-	element.parentNode.insertBefore(el, element)
+	if (element)
+	{
+		var el = document.createElement("span");
+		el.innerHTML = "<b>Certified Green Host</b>";
+		el.style.backgroundColor = 'darkgreen';
+		el.style.padding = '2px'
+		el.style.fontSize = "10px"
+		el.style.color = 'white'
+		element.parentNode.insertBefore(el, element)
+	}
 }
 
 async function makeAPICallForLink(link, element)
