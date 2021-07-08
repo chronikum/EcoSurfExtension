@@ -1,4 +1,3 @@
-
 const endpointLegacy = "https://ecosurf.io/api/getValidation"
 const endpointValidations = "https://ecosurf.io/api/getValidations"
 
@@ -104,10 +103,8 @@ function collectSearchResultsandMakeCal() {
 				const onlyLink = link.split(" ")[0];
 				if (!allUrls.includes(onlyLink))
 				{
-					// getInformationForLinkAndSetAtElement(onlyLink, element)
 					allUrls.push(onlyLink)
 					elementsArray.push(element);
-					console.log("Pushing")
 				}
 			}
 		}

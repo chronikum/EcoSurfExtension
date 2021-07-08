@@ -10,5 +10,8 @@
 			"run_at": "document_end"
 		}
 	],
+	"action": {
+		"default_popup": "popup.html"
+	},
 	"permissions": ["storage", "contentSettings", "activeTab", "scripting"]
 }
