@@ -6,21 +6,10 @@ const endpointValidations = "https://ecosurf.io/api/getValidations"
  * https://stackoverflow.com/a/23945027
  */
 function extractHostname(url) {
-    var hostname;
-
-    if (url.indexOf("//") > -1) {
-        hostname = url.split('/')[2];
-    }
-    else {
-        hostname = url.split('/')[0];
-    }
-
-    //find & remove port number
-    hostname = hostname.split(':')[0];
-    //find & remove "?"
-    hostname = hostname.split('?')[0];
-
-    return hostname;
+	url = url.replace("http://", "");
+	url = url.replace("https://", "");
+	url = url.replace("www.", "");
+	return url;
 }
 
 /**
@@ -70,8 +59,8 @@ async function makeAPICallWithArray(linkArray, elementsArray) {
 				if (body?.validations[validation]?.validation.isGreen == 1)
 				{
 					putGreenHostBadge(elementsArray[counter])
-					counter++;
 				}
+				counter++;
 			}
 		})
 	});
@@ -97,15 +86,13 @@ function collectSearchResultsandMakeCal() {
 		
 		if (element instanceof HTMLElement)
 		{
+			// TODO: Search de.wikipedia.org and fix that
 			const link = element?.querySelector(".g div div div a div cite")?.textContent;
 			if (link)
 			{
 				const onlyLink = link.split(" ")[0];
-				if (!allUrls.includes(onlyLink))
-				{
-					allUrls.push(onlyLink)
-					elementsArray.push(element);
-				}
+				allUrls.push(onlyLink)
+				elementsArray.push(element);
 			}
 		}
 	}
@@ -113,4 +100,3 @@ function collectSearchResultsandMakeCal() {
 	makeAPICallWithArray(allUrls, elementsArray)
 }
 
-collectSearchResultsandMakeCal();
