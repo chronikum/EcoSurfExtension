@@ -1,7 +1,6 @@
 
-const endpoint = "https://ecosurf.io/api/getValidation"
-
-let elements = document.getElementsByClassName("g");
+const endpointLegacy = "https://ecosurf.io/api/getValidation"
+const endpointValidations = "https://ecosurf.io/api/getValidations"
 
 /**
  * Thanks
@@ -41,10 +40,16 @@ function putGreenHostBadge(element) {
 	}
 }
 
-async function makeAPICallForLink(link, element)
-{
-	link = extractHostname(link)
-	console.log("CALLING LINK: " + link)
+/**
+ * basically the same as makeAPICallForLink. But it sends multiple url at once so we save bandwidth.
+ * @param  linkArray 
+ * @param  elementsArray 
+ */
+async function makeAPICallWithArray(linkArray, elementsArray) {
+	// Extract hostname from every link
+	for (linkArrayRef in linkArray) {
+		linkArray[linkArrayRef] = extractHostname(linkArray[linkArrayRef])
+	}
 	var myHeaders = new Headers();
 	myHeaders.append("Content-Type", "application/json");
 
@@ -53,17 +58,21 @@ async function makeAPICallForLink(link, element)
 		mode: 'cors',
 		headers: myHeaders,
 		body: JSON.stringify({
-			"key": link
+			"keys": linkArray
 		}),
 		redirect: 'follow'
 	};
 
-	const response = await fetch(endpoint, requestOptions).then(response => {
+	console.log("Running request to multiple validations at once")
+	const response = await fetch(endpointValidations, requestOptions).then(response => {
 		response.json().then(body => {
-			console.log(body)
-			if (body?.validation?.isGreen == 1)
-			{
-				putGreenHostBadge(element)
+			counter = 0;
+			for (let validation in body?.validations) {
+				if (body?.validations[validation]?.validation.isGreen == 1)
+				{
+					putGreenHostBadge(elementsArray[counter])
+					counter++;
+				}
 			}
 		})
 	});
@@ -75,23 +84,36 @@ async function makeAPICallForLink(link, element)
 async function getInformationForLinkAndSetAtElement(link, element) {
 	makeAPICallForLink(link, element)
 }
-const allUrls = []
 
-for (var elementRef in elements)
-{
-	const element = elements[elementRef]
-	
-	if (element)
+function collectSearchResultsandMakeCal() {
+	console.log("Starting")
+	let elements = document.getElementsByClassName("g");
+
+	const allUrls = []
+	const elementsArray = [];
+
+	for (var elementRef in elements)
 	{
-		const link = element.querySelector(".g div div div a div cite")?.textContent;
-		if (link)
+		const element = elements[elementRef]
+		
+		if (element instanceof HTMLElement)
 		{
-			const onlyLink = link.split(" ")[0];
-			if (!allUrls.includes(onlyLink))
+			const link = element?.querySelector(".g div div div a div cite")?.textContent;
+			if (link)
 			{
-				getInformationForLinkAndSetAtElement(onlyLink, element)
-				allUrls.push(onlyLink)
+				const onlyLink = link.split(" ")[0];
+				if (!allUrls.includes(onlyLink))
+				{
+					// getInformationForLinkAndSetAtElement(onlyLink, element)
+					allUrls.push(onlyLink)
+					elementsArray.push(element);
+					console.log("Pushing")
+				}
 			}
 		}
 	}
+	console.log("Making call")
+	makeAPICallWithArray(allUrls, elementsArray)
 }
+
+collectSearchResultsandMakeCal();
