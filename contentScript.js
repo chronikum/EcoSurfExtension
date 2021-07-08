@@ -80,14 +80,18 @@ const allUrls = []
 for (var elementRef in elements)
 {
 	const element = elements[elementRef]
+	
 	if (element)
 	{
 		const link = element.querySelector(".g div div div a div cite")?.textContent;
 		if (link)
 		{
 			const onlyLink = link.split(" ")[0];
-			allUrls.push(onlyLink)
-			getInformationForLinkAndSetAtElement(onlyLink, element)
+			if (!allUrls.includes(onlyLink))
+			{
+				getInformationForLinkAndSetAtElement(onlyLink, element)
+				allUrls.push(onlyLink)
+			}
 		}
 	}
 }
