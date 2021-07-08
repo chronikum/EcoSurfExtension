@@ -10,5 +10,5 @@
 			"run_at": "document_end"
 		}
 	],
-	"permissions": ["storage", "contentSettings", "activeTab"]
+	"permissions": ["storage", "contentSettings", "activeTab", "scripting"]
 }
