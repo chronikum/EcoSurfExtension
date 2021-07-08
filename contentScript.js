@@ -31,7 +31,9 @@ function extractHostname(url) {
 function putGreenHostBadge(element) {
 	var el = document.createElement("span");
 	el.innerHTML = "Green Host";
-
+	el.style.backgroundColor = 'darkgreen';
+	el.style.padding = '2px'
+	el.style.color = 'white'
 	element.parentNode.insertBefore(el, element)
 }
 
@@ -57,7 +59,6 @@ async function makeAPICallForLink(link, element)
 			console.log(body)
 			if (body?.validation?.isGreen == 1)
 			{
-				element.style.backgroundColor = 'lightgreen';
 				putGreenHostBadge(element)
 			}
 		})
