@@ -56,7 +56,8 @@ async function makeAPICallWithArray(linkArray, elementsArray) {
 		response.json().then(body => {
 			counter = 0;
 			for (let validation in body?.validations) {
-				if (body?.validations[validation]?.validation.isGreen == 1)
+				console.log(validation)
+				if (body?.validations[validation]?.validation.validation.isGreen == 1)
 				{
 					putGreenHostBadge(elementsArray[counter])
 				}
@@ -90,6 +91,7 @@ function collectSearchResultsandMakeCal() {
 			const link = element?.querySelector(".g div div div a div cite")?.textContent;
 			if (link)
 			{
+				console.log("FOUND LINK")
 				const onlyLink = link.split(" ")[0];
 				allUrls.push(onlyLink)
 				elementsArray.push(element);
@@ -100,3 +102,4 @@ function collectSearchResultsandMakeCal() {
 	makeAPICallWithArray(allUrls, elementsArray)
 }
 
+collectSearchResultsandMakeCal();
