@@ -91,8 +91,13 @@ function putBadge(validation, element) {
 	if (element)
 	{
 		var el = document.createElement("span");
-		el.innerHTML = `<img alt="${altText}" style="width: 20px" src="${filePath}"> <span style="color: gray">hover for more</span>`;
-		element.parentNode.insertBefore(el, element)
+		el.innerHTML = `<img alt="${altText}" style="width: 20px" src="${filePath}"> `;
+		el.classList = "ecosurf"
+		// hack to make sure ecosurf isn't displayed twice on smart results with rich content
+		if (!element.querySelector("div a h3 span:nth-child(1)"))
+		{
+			element.querySelector("div a h3")?.prepend(el)
+		}
 	}
 }
 
