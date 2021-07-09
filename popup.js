@@ -3,7 +3,7 @@ document.getElementById("button1").onclick = function(){
 };
 
 document.getElementById("button2").onclick = function(){
-	openLink("https://ecosurf.io/donate")
+	openLink("https://ecosurf.io/clear-co2-footprint/")
 };
 
 document.getElementById("github").onclick = function(){
