@@ -11,7 +11,8 @@
 		}
 	],
 	"action": {
-		"default_popup": "popup.html"
+		"default_popup": "popup.html",
+		"script": "popup.js"
 	},
 	"web_accessible_resources": [{
 		"resources": [
@@ -26,5 +27,10 @@
 		],
 		"matches": ["<all_urls>"]
 	}],
-	"permissions": ["storage", "contentSettings", "activeTab", "scripting"]
+	"icons": { 
+		"16": "assets/16.png",
+		"48": "assets/48.png",
+	   	"128": "assets/128.png" 
+	},
+	"permissions": ["storage", "contentSettings", "activeTab", "scripting", "tabs"]
 }

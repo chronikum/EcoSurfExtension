@@ -49,6 +49,41 @@ function evaluateRatingOfWebsite(validation) {
 	return fileName
 }
 
+
+/**
+ * Gets the title text for a website
+ */
+ function getTitleText(validation) {
+	let fileName = "";
+	// Everything ok
+	console.log(validation)
+	if (validation.validation?.isGreen) {
+		fileName += "g"
+	}
+	if (!checkIfWebsiteisBiggerThan3MB(validation?.validation?.bytesTotal)) {
+		fileName += "si"
+	}
+	if (calculatePageSpeed(validation?.validation?.SpeedIndex) > 50) {
+		fileName += "speed"
+	}
+
+	if (fileName == "gsispeed")
+		return "Green Host, good size and great performance" // gsispeed
+	if (fileName == "gspeed")
+		return "Green Host, and great performance" // gspeed
+	if (fileName == "sispeed")
+		return "Good size and great performance" // sispeed
+	if (fileName == "gsi")
+		return "Green host and good size" // gsi
+	if (fileName == "si")
+		return "Good size" // si
+	if (fileName == "g")
+		return "Green Host" // g
+	if (fileName == "speed")
+		return "Good performance" // g
+	return "Not climate friendly verified"
+}
+
 /**
  * Gets the alt text for a website
  */
@@ -78,6 +113,8 @@ function getAltText(validation) {
 		return "A black leaf, under it a green wave, under that a black wave" // si
 	if (fileName == "g")
 		return "A black leaf, under it a black wave, under that a green wave" // g
+	if (fileName == "speed")
+		return "A green leaf, under it a black wave, under that another black wave" // g
 	return "A black leaf, under it a black wave, under that another black wave"
 }
 
@@ -87,11 +124,12 @@ function getAltText(validation) {
 function putBadge(validation, element) {
 	const fileName = evaluateRatingOfWebsite(validation);
 	const altText = getAltText(validation);
+	const description = getTitleText(validation);
 	let filePath = `chrome-extension://${chrome.runtime.id}/assets/${fileName}.svg`
 	if (element)
 	{
 		var el = document.createElement("span");
-		el.innerHTML = `<img alt="${altText}" style="width: 20px" src="${filePath}"> `;
+		el.innerHTML = `<img title="${description}" alt="${altText}" style="width: 20px" src="${filePath}"> `;
 		el.classList = "ecosurf"
 		// hack to make sure ecosurf isn't displayed twice on smart results with rich content
 		if (!element.querySelector("div a h3 span:nth-child(1)"))
