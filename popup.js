@@ -6,6 +6,10 @@ document.getElementById("button2").onclick = function(){
 	openLink("https://ecosurf.io/donate")
 };
 
+document.getElementById("github").onclick = function(){
+	openLink("https://github.com/chronikum/EcoSurfExtension")
+};
+
 /**
  * Open link
  */
