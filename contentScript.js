@@ -1,6 +1,7 @@
 const endpointLegacy = "https://ecosurf.io/api/getValidation"
 const endpointValidations = "https://ecosurf.io/api/getValidations"
 
+
 /**
  * Thanks
  * https://stackoverflow.com/a/23945027
@@ -30,11 +31,20 @@ function checkIfWebsiteisBiggerThan3MB(bytesTotal) {
  * Returns the name of the icon to be used
  */
 function evaluateRatingOfWebsite(validation) {
-	// tbmg
-	if (validation?.isGreen == 1 && checkIfWebsiteisBiggerThan3MB(validation?.bytesTotal) && calculatePageSpeed(validation.SpeedIndex))
-	{
-		return 'tbmg'
+	let fileName = "b";
+	// Everything ok
+	console.log(validation)
+	if (validation.validation?.isGreen) {
+		fileName += "g"
 	}
+	if (!validation.validation?.checkIfWebsiteisBiggerThan3MB) {
+		fileName += "si"
+	}
+	if (validation.validation?.calculatePageSpeed > 75) {
+		fileName += "speed"
+	}
+
+	return fileName
 }
 
 /**
@@ -56,8 +66,15 @@ function putGreenHostBadge(element) {
 /**
  * Put badge determined by validation object
  */
-function putBadge(validation) {
-
+function putBadge(validation, element) {
+	const fileName = evaluateRatingOfWebsite(validation);
+	let filePath = `chrome-extension://${chrome.runtime.id}/assets/${fileName}.svg`
+	if (element)
+	{
+		var el = document.createElement("span");
+		el.innerHTML = `<img style="width: 16px" src="${filePath}"> <span style="color: gray">hover for information</span>`;
+		element.parentNode.insertBefore(el, element)
+	}
 }
 
 /**
@@ -82,24 +99,20 @@ async function makeAPICallWithArray(linkArray, elementsArray) {
 		}),
 		redirect: 'follow'
 	};
-
-	console.log("Running request to multiple validations at once")
+	// Receiving response here
 	const response = await fetch(endpointValidations, requestOptions).then(response => {
 		response.json().then(body => {
 			for (let element in elementsArray) {
-				// const website = body.validations?.find(validation?.url = )
 				let directLink = elementsArray[element]?.querySelector("div a div cite")?.textContent?.split(" ")[0];
 				if (directLink)
 				{
 					directLink = directLink.replace("www.", "")
 					directLink = directLink.replace("https://", "")
 					directLink = directLink.replace("http://", "")
-					const getValidatonElement = body?.validations.filter(element => element.validation.url == directLink)[0]
-					console.log(getValidatonElement);
-					if (getValidatonElement?.validation?.isGreen == 1)
+					let getValidatonElement = body?.validations?.filter(element => element?.validation?.url == directLink)[0]
+					if (getValidatonElement && getValidatonElement?.validation)
 					{
-						putGreenHostBadge(elementsArray[element])
-						putBadge(elementsArray[element])
+						putBadge(getValidatonElement, elementsArray[element])
 					}
 				}
 			}

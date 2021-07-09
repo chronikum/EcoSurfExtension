@@ -13,5 +13,18 @@
 	"action": {
 		"default_popup": "popup.html"
 	},
+	"web_accessible_resources": [{
+		"resources": [
+			"assets/bg.svg",
+			"assets/bgsi.svg",
+			"assets/bgsispeed.svg",
+			"assets/bgspeed.svg",
+			"assets/bsispeed.svg",
+			"assets/bspeed.svg",
+			"assets/b.svg",
+			"assets/bsi.svg"
+		],
+		"matches": ["<all_urls>"]
+	}],
 	"permissions": ["storage", "contentSettings", "activeTab", "scripting"]
 }
