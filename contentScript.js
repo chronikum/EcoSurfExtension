@@ -13,6 +13,31 @@ function extractHostname(url) {
 }
 
 /**
+ * Returns the page speed as a number between 1 and 100 (100 is good)
+ */
+function calculatePageSpeed(pageSpeed) {
+	return 100;
+}
+
+/**
+ * Checks if the website is bigger than 3 MB
+ */
+function checkIfWebsiteisBiggerThan3MB(bytesTotal) {
+	return (bytesTotal > 3000000);
+}
+
+/**
+ * Returns the name of the icon to be used
+ */
+function evaluateRatingOfWebsite(validation) {
+	// tbmg
+	if (validation?.isGreen == 1 && checkIfWebsiteisBiggerThan3MB(validation?.bytesTotal) && calculatePageSpeed(validation.SpeedIndex))
+	{
+		return 'tbmg'
+	}
+}
+
+/**
  * Adds a green hosting badge
  */
 function putGreenHostBadge(element) {
@@ -26,6 +51,13 @@ function putGreenHostBadge(element) {
 		el.style.color = 'white'
 		element.parentNode.insertBefore(el, element)
 	}
+}
+
+/**
+ * Put badge determined by validation object
+ */
+function putBadge(validation) {
+
 }
 
 /**
@@ -54,14 +86,22 @@ async function makeAPICallWithArray(linkArray, elementsArray) {
 	console.log("Running request to multiple validations at once")
 	const response = await fetch(endpointValidations, requestOptions).then(response => {
 		response.json().then(body => {
-			counter = 0;
-			for (let validation in body?.validations) {
-				console.log(validation)
-				if (body?.validations[validation]?.validation.isGreen == 1)
+			for (let element in elementsArray) {
+				// const website = body.validations?.find(validation?.url = )
+				let directLink = elementsArray[element]?.querySelector("div a div cite")?.textContent?.split(" ")[0];
+				if (directLink)
 				{
-					putGreenHostBadge(elementsArray[counter])
+					directLink = directLink.replace("www.", "")
+					directLink = directLink.replace("https://", "")
+					directLink = directLink.replace("http://", "")
+					const getValidatonElement = body?.validations.filter(element => element.validation.url == directLink)[0]
+					console.log(getValidatonElement);
+					if (getValidatonElement?.validation?.isGreen == 1)
+					{
+						putGreenHostBadge(elementsArray[element])
+						putBadge(elementsArray[element])
+					}
 				}
-				counter++;
 			}
 		})
 	});
