@@ -50,15 +50,48 @@ function evaluateRatingOfWebsite(validation) {
 }
 
 /**
+ * Gets the alt text for a website
+ */
+function getAltText(validation) {
+	let fileName = "";
+	// Everything ok
+	console.log(validation)
+	if (validation.validation?.isGreen) {
+		fileName += "g"
+	}
+	if (!checkIfWebsiteisBiggerThan3MB(validation?.validation?.bytesTotal)) {
+		fileName += "si"
+	}
+	if (calculatePageSpeed(validation?.validation?.SpeedIndex) > 50) {
+		fileName += "speed"
+	}
+
+	if (fileName == "gsispeed")
+		return "A green leaf, under it a green wave, under that another green wave" // gsispeed
+	if (fileName == "gspeed")
+		return "A green leaf, under it a black wave, under that a green wave" // gspeed
+	if (fileName == "sispeed")
+		return "A green leaf, under it a green wave, under that a black wave" // sispeed
+	if (fileName == "gsi")
+		return "A black leaf, under it a green wave, under that another green wave" // gsi
+	if (fileName == "si")
+		return "A black leaf, under it a green wave, under that a black wave" // si
+	if (fileName == "g")
+		return "A black leaf, under it a black wave, under that a green wave" // g
+	return "A black leaf, under it a black wave, under that another black wave"
+}
+
+/**
  * Put badge determined by validation object
  */
 function putBadge(validation, element) {
 	const fileName = evaluateRatingOfWebsite(validation);
+	const altText = getAltText(validation);
 	let filePath = `chrome-extension://${chrome.runtime.id}/assets/${fileName}.svg`
 	if (element)
 	{
 		var el = document.createElement("span");
-		el.innerHTML = `<img style="width: 16px" src="${filePath}"> <span style="color: gray">hover for information</span>`;
+		el.innerHTML = `<img alt="${altText}" style="width: 20px" src="${filePath}"> <span style="color: gray">hover for more</span>`;
 		element.parentNode.insertBefore(el, element)
 	}
 }
