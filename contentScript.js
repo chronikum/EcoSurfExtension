@@ -17,7 +17,9 @@ function extractHostname(url) {
  * Returns the page speed as a number between 1 and 100 (100 is good)
  */
 function calculatePageSpeed(pageSpeed) {
-	return 100;
+	var result = 110-(Math.sqrt(pageSpeed)/1.41)
+	console.log(result)
+	return result
 }
 
 /**
@@ -37,30 +39,14 @@ function evaluateRatingOfWebsite(validation) {
 	if (validation.validation?.isGreen) {
 		fileName += "g"
 	}
-	if (!validation.validation?.checkIfWebsiteisBiggerThan3MB) {
+	if (!checkIfWebsiteisBiggerThan3MB(validation?.validation?.bytesTotal)) {
 		fileName += "si"
 	}
-	if (validation.validation?.calculatePageSpeed > 75) {
+	if (calculatePageSpeed(validation?.validation?.SpeedIndex) > 50) {
 		fileName += "speed"
 	}
 
 	return fileName
-}
-
-/**
- * Adds a green hosting badge
- */
-function putGreenHostBadge(element) {
-	if (element)
-	{
-		var el = document.createElement("span");
-		el.innerHTML = "<b>Certified Green Host</b>";
-		el.style.backgroundColor = 'darkgreen';
-		el.style.padding = '2px'
-		el.style.fontSize = "10px"
-		el.style.color = 'white'
-		element.parentNode.insertBefore(el, element)
-	}
 }
 
 /**
