@@ -57,8 +57,7 @@ async function makeAPICallWithArray(linkArray, elementsArray) {
 			counter = 0;
 			for (let validation in body?.validations) {
 				console.log(validation)
-				// TODO: Fix validation.validation
-				if (body?.validations[validation]?.validation.validation.isGreen == 1)
+				if (body?.validations[validation]?.validation.isGreen == 1)
 				{
 					putGreenHostBadge(elementsArray[counter])
 				}
