@@ -151,7 +151,6 @@ async function makeAPICallWithArray(linkArray, elementsArray) {
 	}
 	var myHeaders = new Headers();
 	myHeaders.append("Content-Type", "application/json");
-
 	var requestOptions = {
 		method: 'POST',
 		mode: 'cors',

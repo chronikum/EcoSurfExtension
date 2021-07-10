@@ -1,10 +1,24 @@
-# EcoSurf
+Surf sustainable. EcoSurf.  
+Winner of the Google Challenge at Collabothon 2021.
+# EcoSurf V1
 
-This is the EcoSurf-Extension.  
+**This is ecosurf V1!**  
+In the hackathon beta, we did consider to built it in a privacy focused design.  
+But we did not had enough time. So we thought about how to make it harder for us to track the user.  
+We came up with an idea and this is the first implementation of it.  
+Our implementation is heavily inspired by [haveibeenpwned](https://haveibeenpwned.com/Privacy) password handling.  
+We will never see the hash of the full url you visited.  
+This also increases the overhead of information sent back to you a little, but it is marginal.  
+We implemented better compression to reduce to overhead.  
+You can find out more about it on https://ecosurf.io/privacy-practices.  
+It will be improved in the future if this should be necessary.  
+
+
 This is a project work in progress developed during the hackathon https://collabothon.eu in 2021.  
-The license of the project is not determined yet but will be in the future.  
+Special thanks to the fantastic coding school [42heilbronn](https://42heilbronn.de), which provided the team EcoSurf not only with
+room to hack in, but also with food, hardware and even dorms for a few people.
 
-We welcome contribution.  
+We welcome contribution to our project.
 
 You can download the extension right here or soon in the Chrome Web Store.  
 If you download it, select "Load unpacked extension".  
