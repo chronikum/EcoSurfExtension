@@ -2,6 +2,7 @@
 	"name": "EcoSurf",
 	"description": "Surf climate friendly!",
 	"version": "1.0",
+	"author": "EcoSurf Team",
 	"manifest_version": 3,
 	"content_scripts": [
 		{
@@ -32,5 +33,5 @@
 		"48": "assets/48.png",
 	   	"128": "assets/128.png" 
 	},
-	"permissions": ["storage", "contentSettings", "activeTab", "scripting", "tabs"]
+	"permissions": ["scripting", "tabs"]
 }
