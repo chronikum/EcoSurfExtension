@@ -1,20 +1,22 @@
-# EcoSurf
+Surf sustainable. EcoSurf.  
+## Winner of the Google Challenge at Collabothon 2021.
 
-This is the EcoSurf-Extension.  
+# **This is ecosurf V0.9!**  
+This extension will help you to surf more sustainable!  
+It shows you which websites are green hosted, how efficent they are built and if their size is bigger  
+than the average website.  
+it raises awareness during browsing and makes the web more sustainable :)
+
+There are features on the roadmap too:  
+	- Hashing of urls before sending them to the backend (privacy-obscurity)  
+	- Fixing a few bugs in displaying results  
+	- More  
+
 This is a project work in progress developed during the hackathon https://collabothon.eu in 2021.  
-The license of the project is not determined yet but will be in the future.  
+Special thanks to the fantastic coding school [42heilbronn](https://42heilbronn.de), which provided the team EcoSurf not only with
+room to hack in, but also with food, hardware and even dorms for a few people.
 
-We welcome contribution.  
-
-You can download the extension right here or soon in the Chrome Web Store.  
-If you download it, select "Load unpacked extension".  
-
-if you download it manually, we recommend you checking this site for updates regulary.  
-
-Thank you for your interest in our work 🌍
-
-
-## **Licenses:**
+We welcome contribution to our project.
 
 ## Datasets
 
