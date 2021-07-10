@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 20:21:35 by jfritz            #+#    #+#             */
-/*   Updated: 2021/07/10 20:21:36 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/07/10 23:02:14 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ function putBadge(validation, element) {
 	const fileName = evaluateRatingOfWebsite(validation);
 	const altText = getAltText(validation);
 	const description = getTitleText(validation);
-	let filePath = `chrome-extension://${chrome.runtime.id}/assets/${fileName}.svg`
+	let filePath = browser.runtime.getURL(`assets/${fileName}.svg`);
 	if (element)
 	{
 		var el = document.createElement("span");
@@ -169,24 +169,26 @@ async function makeAPICallWithArray(linkArray, elementsArray) {
 		redirect: 'follow'
 	};
 	// Receiving response here
-	const response = await fetch(endpointValidations, requestOptions).then(response => {
-		response.json().then(body => {
-			for (let element in elementsArray) {
-				let directLink = elementsArray[element]?.querySelector("div a div cite")?.textContent?.split(" ")[0];
-				if (directLink)
-				{
-					directLink = directLink.replace("www.", "")
-					directLink = directLink.replace("https://", "")
-					directLink = directLink.replace("http://", "")
-					let getValidatonElement = body?.validations?.filter(element => element?.validation?.url == directLink)[0]
-					if (getValidatonElement && getValidatonElement?.validation)
+	setTimeout(async () => {
+		const response = await fetch(endpointValidations, requestOptions).then(response => {
+			response.json().then(body => {
+				for (let element in elementsArray) {
+					let directLink = elementsArray[element]?.querySelector("div a div cite")?.textContent?.split(" ")[0];
+					if (directLink)
 					{
-						putBadge(getValidatonElement, elementsArray[element])
+						directLink = directLink.replace("www.", "")
+						directLink = directLink.replace("https://", "")
+						directLink = directLink.replace("http://", "")
+						let getValidatonElement = body?.validations?.filter(element => element?.validation?.url == directLink)[0]
+						if (getValidatonElement && getValidatonElement?.validation)
+						{
+							putBadge(getValidatonElement, elementsArray[element])
+						}
 					}
 				}
-			}
-		})
-	});
+			})
+		});
+	}, 2000)
 }
 
 /**
@@ -201,6 +203,7 @@ function collectSearchResultsandMakeCal() {
 
 	const allUrls = []
 	const elementsArray = [];
+	console.log(elements)
 
 	for (var elementRef in elements)
 	{

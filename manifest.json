@@ -1,9 +1,9 @@
 {
+	"manifest_version": 2,
 	"name": "EcoSurf",
 	"description": "Surf climate friendly!",
 	"version": "1.0",
 	"author": "EcoSurf Team",
-	"manifest_version": 3,
 	"content_scripts": [
 		{
 			"matches": ["https://*/*"],
@@ -15,23 +15,25 @@
 		"default_popup": "popup.html",
 		"script": "popup.js"
 	},
-	"web_accessible_resources": [{
-		"resources": [
-			"assets/bg.svg",
-			"assets/bgsi.svg",
-			"assets/bgsispeed.svg",
-			"assets/bgspeed.svg",
-			"assets/bsispeed.svg",
-			"assets/bspeed.svg",
-			"assets/b.svg",
-			"assets/bsi.svg"
-		],
-		"matches": ["<all_urls>"]
-	}],
+	"web_accessible_resources": [
+		"assets/bg.svg",
+		"assets/bgsi.svg",
+		"assets/bgsispeed.svg",
+		"assets/bgspeed.svg",
+		"assets/bsispeed.svg",
+		"assets/bspeed.svg",
+		"assets/b.svg",
+		"assets/bsi.svg"
+	],
 	"icons": { 
 		"16": "assets/16.png",
 		"48": "assets/48.png",
 	   	"128": "assets/128.png" 
 	},
-	"permissions": ["scripting", "tabs"]
+	"permissions": ["scripting", "tabs", "webRequest", "<all_urls>"],
+	"applications": {
+		"gecko": {
+		  "id": "team@ecosurf.io"
+		}
+	}
 }
