@@ -1,7 +1,11 @@
 Surf sustainable. EcoSurf.  
 Winner of the Google Challenge at Collabothon 2021.
-# EcoSurf V1
+# EcoSurf EXPERIMENTAl
 
+This version is not suitable for production. More information below can be find in the backend repository.
+
+
+Old text:
 **This is ecosurf V1!**  
 In the hackathon beta, we did consider to built it in a privacy focused design.  
 But we did not had enough time. So we thought about how to make it harder for us to track the user.  

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   contentScript.js                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/10 20:21:35 by jfritz            #+#    #+#             */
+/*   Updated: 2021/07/10 20:21:36 by jfritz           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 const endpointLegacy = "https://ecosurf.io/api/getValidation"
 const endpointValidations = "https://ecosurf.io/api/getValidations"
 
@@ -18,7 +30,6 @@ function extractHostname(url) {
  */
 function calculatePageSpeed(pageSpeed) {
 	var result = 110-(Math.sqrt(pageSpeed)/1.41)
-	console.log(result)
 	return result
 }
 
@@ -35,7 +46,6 @@ function checkIfWebsiteisBiggerThan3MB(bytesTotal) {
 function evaluateRatingOfWebsite(validation) {
 	let fileName = "b";
 	// Everything ok
-	console.log(validation)
 	if (validation.validation?.isGreen) {
 		fileName += "g"
 	}
@@ -56,7 +66,6 @@ function evaluateRatingOfWebsite(validation) {
  function getTitleText(validation) {
 	let fileName = "";
 	// Everything ok
-	console.log(validation)
 	if (validation.validation?.isGreen) {
 		fileName += "g"
 	}
@@ -90,7 +99,6 @@ function evaluateRatingOfWebsite(validation) {
 function getAltText(validation) {
 	let fileName = "";
 	// Everything ok
-	console.log(validation)
 	if (validation.validation?.isGreen) {
 		fileName += "g"
 	}
@@ -189,7 +197,6 @@ async function getInformationForLinkAndSetAtElement(link, element) {
 }
 
 function collectSearchResultsandMakeCal() {
-	console.log("Starting")
 	let elements = document.getElementsByClassName("g");
 
 	const allUrls = []
@@ -205,14 +212,12 @@ function collectSearchResultsandMakeCal() {
 			const link = element?.querySelector(".g div div div a div cite")?.textContent;
 			if (link)
 			{
-				console.log("FOUND LINK")
 				const onlyLink = link.split(" ")[0];
 				allUrls.push(onlyLink)
 				elementsArray.push(element);
 			}
 		}
 	}
-	console.log("Making call")
 	makeAPICallWithArray(allUrls, elementsArray)
 }
 
