@@ -33,5 +33,5 @@
 		"48": "assets/48.png",
 	   	"128": "assets/128.png" 
 	},
-	"permissions": ["scripting", "tabs"]
+	"permissions": ["scripting"]
 }
